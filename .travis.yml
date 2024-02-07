@@ -1,9 +1,18 @@
+os: linux
+dist: focal
+group: edge
+language: python
+services:
+  - docker
 jobs:
   include:
-    - os: freebsd
-      language: java
-      arch: amd64
+    - stage: "sleep 109"
       script:
-        - javac hello_world.java
-        - java HelloWorld
-
+        - echo arthanaharidas
+        - docker login -u "arthanaharidas" -p "${DOCKER_HUB_PASSWORD}"
+        - docker build -t hello-world-python .
+        - docker tag hello-world-python arthanaharidas/python-hello-world
+        - docker push arthanaharidas/python-hello-world
+ 
+keys:
+  - Art
